@@ -1,8 +1,8 @@
 package hu.bme.aut.ninjatraining.model
 
-class Stone( var position: Position = Position(0F, 0F), var velocity: Float = 0F) {
+class Stone(var position: Vec2 = Vec2(0F, 0F), var velocity: Vec2 = Vec2(0F, 0F)) {
 
-    fun applyAcceleration(acceleration: Float) {
-
+    fun step() {
+        position = position + velocity
     }
 }
