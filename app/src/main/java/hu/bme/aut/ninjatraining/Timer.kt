@@ -6,7 +6,7 @@ import android.view.SurfaceHolder
 
 class Timer(var surfaceHolder: SurfaceHolder, var game: Game): Thread() {
 
-    val FPS: Int = 30
+    val FPS: Int = 60
     var avgFPS: Double = 0.0
     var running: Boolean = false
     var canvas: Canvas = Canvas()
@@ -55,7 +55,6 @@ class Timer(var surfaceHolder: SurfaceHolder, var game: Game): Thread() {
                 avgFPS = (1000 / ((totalTime / frameCount) / 1000000)).toDouble()
                 frameCount = 0
                 totalTime = 0
-                //TODO Log.d("avgFPS", avgFPS.toString())
             }
         }
     }

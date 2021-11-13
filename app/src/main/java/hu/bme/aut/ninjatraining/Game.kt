@@ -5,35 +5,33 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import hu.bme.aut.ninjatraining.model.Scene
-import hu.bme.aut.ninjatraining.model.Stone
-import hu.bme.aut.ninjatraining.model.Vec2
-import hu.bme.aut.ninjatraining.view.SceneView
-import hu.bme.aut.ninjatraining.view.StoneView
+import hu.bme.aut.ninjatraining.controller.NinjaController
+import hu.bme.aut.ninjatraining.controller.SceneController
+import hu.bme.aut.ninjatraining.controller.StoneController
 
 class Game(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
 
     private var thread: Timer
 
-    private val gravity: Vec2 = Vec2(0F, 1F)
+    private lateinit var ninjaController: NinjaController
+    private lateinit var stoneController: StoneController
+    private lateinit var sceneController: SceneController
 
-    private var stone: Stone
-    private val stoneView: StoneView = StoneView()
-    private var scene: Scene
-    private val sceneView: SceneView = SceneView()
+    private var rightPressed = false
+    private var leftPressed = false
 
     init {
         holder.addCallback(this)
         thread = Timer(holder, this)
         isFocusable = true
         setBackgroundColor(Color.CYAN)
-
-        //TODO Ilyenkor a width és a height még nem elérhetőek
-        stone = Stone(Vec2((width/2).toFloat(), (height/2).toFloat()))
-        scene = Scene(width.toFloat(), height.toFloat())
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
+        ninjaController = NinjaController(width.toFloat(), height.toFloat())
+        stoneController = StoneController(width.toFloat(), height.toFloat())
+        sceneController = SceneController(width.toFloat(), height.toFloat())
+
         thread.running = true
         thread.start()
     }
@@ -51,13 +49,37 @@ class Game(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
     }
 
     fun step() {
-        stone.velocity = stone.velocity + gravity
-        stone.step()
+        stoneController.step()
+        ninjaController.step()
     }
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        sceneView.draw(scene, canvas)
-        stoneView.draw(stone, canvas)
+        sceneController.draw(canvas)
+        stoneController.draw(canvas)
+        ninjaController.draw(canvas)
+        invalidate()
+    }
+
+    fun rightButtonPressed(){
+        rightPressed = true
+        ninjaController.goRight()
+    }
+
+    fun rightButtonReleased(){
+        rightPressed = false
+        if (leftPressed) ninjaController.goLeft()
+        else ninjaController.stayStill()
+    }
+
+    fun leftButtonPressed(){
+        leftPressed = true
+        ninjaController.goLeft()
+    }
+
+    fun leftButtonReleased(){
+        leftPressed = false
+        if (rightPressed) ninjaController.goRight()
+        else ninjaController.stayStill()
     }
 }
