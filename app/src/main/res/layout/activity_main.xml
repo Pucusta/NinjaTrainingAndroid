@@ -6,40 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:weightSum="4">
+    android:gravity="center">
 
     <LinearLayout
-        android:id="@+id/gameViewLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="4">
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/buttonLayout"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:orientation="vertical">
 
         <Button
-            android:id="@+id/leftButton"
-            android:layout_width="1dp"
+            android:id="@+id/startButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="LEFT"
+            android:text="START"
             android:textAllCaps="false"
             android:textSize="40dp" />
 
         <Button
-            android:id="@+id/rightButton"
-            android:layout_width="1dp"
+            android:id="@+id/toplistButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="RIGHT"
+            android:text="TOPLIST"
             android:textAllCaps="false"
             android:textSize="40dp" />
-    </LinearLayout>
+    </LinearLayout>>
 
 </LinearLayout>

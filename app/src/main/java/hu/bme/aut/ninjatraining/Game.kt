@@ -7,15 +7,17 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import hu.bme.aut.ninjatraining.controller.NinjaController
 import hu.bme.aut.ninjatraining.controller.SceneController
+import hu.bme.aut.ninjatraining.controller.ScoreController
 import hu.bme.aut.ninjatraining.controller.StoneController
 
-class Game(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
+class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(context), SurfaceHolder.Callback {
 
     private var thread: Timer
 
     private lateinit var ninjaController: NinjaController
     private lateinit var stoneController: StoneController
     private lateinit var sceneController: SceneController
+    private lateinit var scoreController: ScoreController
 
     private var rightPressed = false
     private var leftPressed = false
@@ -31,9 +33,12 @@ class Game(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
         ninjaController = NinjaController(width.toFloat(), height.toFloat())
         stoneController = StoneController(width.toFloat(), height.toFloat())
         sceneController = SceneController(width.toFloat(), height.toFloat())
+        scoreController = ScoreController()
 
         thread.running = true
         thread.start()
+
+        scoreController.startCounting()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -51,6 +56,7 @@ class Game(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
     fun step() {
         stoneController.step()
         ninjaController.step()
+        scoreController.step()
     }
 
     override fun draw(canvas: Canvas) {
@@ -58,6 +64,7 @@ class Game(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
         sceneController.draw(canvas)
         stoneController.draw(canvas)
         ninjaController.draw(canvas)
+        scoreController.draw(canvas)
         invalidate()
     }
 
