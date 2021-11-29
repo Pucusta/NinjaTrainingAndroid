@@ -30,15 +30,8 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        ninjaController = NinjaController(width.toFloat(), height.toFloat())
-        stoneController = StoneController(width.toFloat(), height.toFloat())
-        sceneController = SceneController(width.toFloat(), height.toFloat())
-        scoreController = ScoreController()
-
-        timer.running = true
-        timer.start()
-
-        scoreController.startCounting()
+        startGame()
+        gameActivity.gameInitialized = true
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -74,29 +67,45 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
         scoreController.draw(canvas)
     }
 
-    fun rightButtonPressed(){
+    fun rightButtonPressed() {
         rightPressed = true
         ninjaController.goRight()
     }
 
-    fun rightButtonReleased(){
+    fun rightButtonReleased() {
         rightPressed = false
         if (leftPressed) ninjaController.goLeft()
         else ninjaController.stayStill()
     }
 
-    fun leftButtonPressed(){
+    fun leftButtonPressed() {
         leftPressed = true
         ninjaController.goLeft()
     }
 
-    fun leftButtonReleased(){
+    fun leftButtonReleased() {
         leftPressed = false
         if (rightPressed) ninjaController.goRight()
         else ninjaController.stayStill()
     }
 
-    fun endGame(){
+    fun startGame() {
+        ninjaController = NinjaController(width.toFloat(), height.toFloat())
+        stoneController = StoneController(width.toFloat(), height.toFloat())
+        sceneController = SceneController(width.toFloat(), height.toFloat())
+        scoreController = ScoreController()
+
+        timer.running = true
+        timer.start()
+
+        scoreController.startCounting()
+    }
+
+    fun pauseGame() {
+        timer.running = false
+    }
+
+    fun endGame() {
         timer.running = false
         gameActivity.endGame(scoreController.getScore())
     }

@@ -61,6 +61,16 @@ class ToplistActivity : AppCompatActivity() {
                 }
                 true
             }
+            R.id.keep_top -> {
+                thread {
+                    val toplistItems = database.toplistItemDao().getAll().sortedByDescending { ToplistItem -> ToplistItem.score }
+                    val itemsForDelete = toplistItems.subList(10, toplistItems.size)
+                    for (item in itemsForDelete)
+                        database.toplistItemDao().deleteItem(item)
+                    loadItemsInBackground()
+                }
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
