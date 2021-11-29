@@ -1,8 +1,8 @@
 package hu.bme.aut.ninjatraining.model
 
-class Ninja(var position: Vec2 = Vec2(0F, 0F), var velocity: Vec2 = Vec2(0F, 0F)) {
+class Ninja(position: Vec2, velocity: Vec2, radius: Float) : GameObject(position, velocity, radius){
 
-    fun step() {
+    override fun step() {
         position += velocity
     }
 }

@@ -15,8 +15,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.startButton.setOnClickListener {
-            val profileIntent = Intent(this, GameActivity::class.java)
-            startActivity(profileIntent)
+            val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.toplistButton.setOnClickListener {
+            val intent = Intent(this, ToplistActivity::class.java)
+            startActivity(intent)
         }
     }
 }

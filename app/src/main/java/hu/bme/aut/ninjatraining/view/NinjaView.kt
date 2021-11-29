@@ -14,6 +14,6 @@ class NinjaView {
     }
 
     fun draw(ninja: Ninja, canvas: Canvas) {
-        canvas.drawCircle(ninja.position.x, ninja.position.y, 50F, paint)
+        canvas.drawCircle(ninja.position.x, ninja.position.y, ninja.radius, paint)
     }
 }

@@ -14,6 +14,6 @@ class StoneView {
     }
 
     fun draw(stone: Stone, canvas: Canvas) {
-        canvas.drawCircle(stone.position.x, stone.position.y, 40F, paint)
+        canvas.drawCircle(stone.position.x, stone.position.y, stone.radius, paint)
     }
 }

@@ -5,7 +5,11 @@
       <map>
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.334375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_toplist.xml" value="0.3125" />
+        <entry key="app/src/main/res/layout/dialog_new_toplist_item.xml" value="0.2890625" />
+        <entry key="app/src/main/res/layout/item_toplist.xml" value="0.25" />
         <entry key="app/src/main/res/layout/title.xml" value="0.3375" />
+        <entry key="app/src/main/res/menu/menu_toplist.xml" value="0.3125" />
       </map>
     </option>
   </component>

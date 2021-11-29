@@ -20,4 +20,8 @@ class ScoreController {
     fun draw(canvas: Canvas){
         scoreView.draw(score, canvas)
     }
+
+    fun getScore(): Int {
+        return score
+    }
 }

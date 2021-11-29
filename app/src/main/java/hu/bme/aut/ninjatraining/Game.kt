@@ -12,7 +12,7 @@ import hu.bme.aut.ninjatraining.controller.StoneController
 
 class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(context), SurfaceHolder.Callback {
 
-    private var thread: Timer
+    private var timer: Timer
 
     private lateinit var ninjaController: NinjaController
     private lateinit var stoneController: StoneController
@@ -24,7 +24,7 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
 
     init {
         holder.addCallback(this)
-        thread = Timer(holder, this)
+        timer = Timer(holder, this)
         isFocusable = true
         setBackgroundColor(Color.CYAN)
     }
@@ -35,8 +35,8 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
         sceneController = SceneController(width.toFloat(), height.toFloat())
         scoreController = ScoreController()
 
-        thread.running = true
-        thread.start()
+        timer.running = true
+        timer.start()
 
         scoreController.startCounting()
     }
@@ -46,8 +46,8 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         try {
-            thread.running = false
-            thread.join()
+            timer.running = false
+            timer.join()
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
@@ -57,6 +57,13 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
         stoneController.step()
         ninjaController.step()
         scoreController.step()
+
+        val ninja = ninjaController.getNinja()
+        val stones = stoneController.getStones()
+        for (stone in stones) {
+            if (stone.intersectGameObject(ninja))
+                endGame()
+        }
     }
 
     override fun draw(canvas: Canvas) {
@@ -65,7 +72,6 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
         stoneController.draw(canvas)
         ninjaController.draw(canvas)
         scoreController.draw(canvas)
-        invalidate()
     }
 
     fun rightButtonPressed(){
@@ -88,5 +94,10 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
         leftPressed = false
         if (rightPressed) ninjaController.goRight()
         else ninjaController.stayStill()
+    }
+
+    fun endGame(){
+        timer.running = false
+        gameActivity.endGame(scoreController.getScore())
     }
 }

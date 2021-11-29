@@ -26,7 +26,7 @@ class Timer(var surfaceHolder: SurfaceHolder, var game: Game): Thread() {
                 canvas = surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
                     game.step()
-                    game.draw(canvas)
+                    game.invalidate()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -58,5 +58,4 @@ class Timer(var surfaceHolder: SurfaceHolder, var game: Game): Thread() {
             }
         }
     }
-
 }

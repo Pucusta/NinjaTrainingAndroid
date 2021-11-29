@@ -5,13 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import hu.bme.aut.ninjatraining.adapter.ToplistAdapter
+import hu.bme.aut.ninjatraining.data.ToplistDatabase
+import hu.bme.aut.ninjatraining.data.ToplistItem
 import hu.bme.aut.ninjatraining.databinding.ActivityGameBinding
+import hu.bme.aut.ninjatraining.fragments.NewToplistItemDialogFragment
+import kotlin.concurrent.thread
 
-class GameActivity : AppCompatActivity() {
+class GameActivity : AppCompatActivity(), NewToplistItemDialogFragment.NewToplistItemDialogListener{
 
     private lateinit var binding: ActivityGameBinding
 
     private lateinit var game: Game
+
+    private lateinit var database: ToplistDatabase
+    private lateinit var adapter: ToplistAdapter
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,5 +55,23 @@ class GameActivity : AppCompatActivity() {
                 return true
             }
         })
+
+        database = ToplistDatabase.getDatabase(applicationContext)
+        adapter = ToplistAdapter()
+    }
+
+    override fun onToplistItemCreated(newItem: ToplistItem) {
+        thread {
+            val insertId = database.toplistItemDao().insert(newItem)
+            newItem.id = insertId
+            runOnUiThread {
+                adapter.addItem(newItem)
+            }
+        }
+    }
+
+    fun endGame(score: Int) {
+        val fragment = NewToplistItemDialogFragment.newInstance(score)
+        fragment.show(supportFragmentManager, "NewToplistItemDialogFragment")
     }
 }
