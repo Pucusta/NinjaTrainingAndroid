@@ -7,7 +7,7 @@ import hu.bme.aut.ninjatraining.model.Stone
 
 class StoneView {
 
-    private val paint: Paint = Paint()
+    private val paint = Paint()
 
     init {
         paint.color = Color.GRAY

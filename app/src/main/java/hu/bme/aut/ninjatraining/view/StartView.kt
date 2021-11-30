@@ -7,8 +7,8 @@ import hu.bme.aut.ninjatraining.model.Scene
 
 class StartView {
 
-    private val paintWhite: Paint = Paint()
-    private val paintBlack: Paint = Paint()
+    private val paintWhite = Paint()
+    private val paintBlack = Paint()
 
     init {
         paintWhite.color = Color.WHITE

@@ -7,10 +7,10 @@ import hu.bme.aut.ninjatraining.view.NinjaView
 
 class NinjaController(val width: Float, val height: Float) {
 
-    private val ninja: Ninja = Ninja(Vec2(width/2, height*(3F/4F)), Vec2(0F, 0F), 50F)
-    private val ninjaView: NinjaView = NinjaView()
+    private val ninja = Ninja(Vec2(width/2, height*(4F/5F)), Vec2(0F, 0F), width / 20)
+    private val ninjaView = NinjaView()
 
-    private val speedOfNinja = 30F
+    private val speedOfNinja = 25F
 
     fun draw(canvas: Canvas) {
         ninjaView.draw(ninja, canvas)
