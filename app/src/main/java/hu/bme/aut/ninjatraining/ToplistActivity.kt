@@ -23,6 +23,7 @@ class ToplistActivity : AppCompatActivity() {
         binding = ActivityToplistBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        title = "Toplist"
 
         database = ToplistDatabase.getDatabase(applicationContext)
 
@@ -57,6 +58,16 @@ class ToplistActivity : AppCompatActivity() {
                     val toplistItems = database.toplistItemDao().getAll()
                     for (toplistItem in toplistItems)
                         database.toplistItemDao().deleteItem(toplistItem)
+                    loadItemsInBackground()
+                }
+                true
+            }
+            R.id.keep_top -> {
+                thread {
+                    val toplistItems = database.toplistItemDao().getAll().sortedByDescending { ToplistItem -> ToplistItem.score }
+                    val itemsForDelete = toplistItems.subList(10, toplistItems.size)
+                    for (item in itemsForDelete)
+                        database.toplistItemDao().deleteItem(item)
                     loadItemsInBackground()
                 }
                 true

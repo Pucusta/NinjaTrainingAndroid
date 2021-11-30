@@ -1,6 +1,7 @@
 package hu.bme.aut.ninjatraining
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
@@ -20,6 +21,8 @@ class GameActivity : AppCompatActivity(), NewToplistItemDialogFragment.NewToplis
 
     private lateinit var database: ToplistDatabase
     private lateinit var adapter: ToplistAdapter
+
+    var gameInitialized = false
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +63,28 @@ class GameActivity : AppCompatActivity(), NewToplistItemDialogFragment.NewToplis
         adapter = ToplistAdapter()
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (game.initialized)
+            game.startGame()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (game.initialized)
+            game.startGame()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        game.pauseGame()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        game.pauseGame()
+    }
+
     override fun onToplistItemCreated(newItem: ToplistItem) {
         thread {
             val insertId = database.toplistItemDao().insert(newItem)
@@ -70,8 +95,29 @@ class GameActivity : AppCompatActivity(), NewToplistItemDialogFragment.NewToplis
         }
     }
 
+    override fun onReturnToGame() {
+        recreate()
+    }
+
+    override fun onReturnToMenu() {
+        finish()
+    }
+
     fun endGame(score: Int) {
         val fragment = NewToplistItemDialogFragment.newInstance(score)
         fragment.show(supportFragmentManager, "NewToplistItemDialogFragment")
+    }
+
+    override fun saveLastPlayerName(name: String) {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString("lastPlayerName", name)
+            apply()
+        }
+    }
+
+    override fun loadLastPlayerName(): String {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return ""
+        return sharedPref.getString("lastPlayerName", "").toString()
     }
 }

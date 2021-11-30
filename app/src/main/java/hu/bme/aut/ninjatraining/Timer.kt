@@ -3,6 +3,7 @@ package hu.bme.aut.ninjatraining
 import android.graphics.Canvas
 import android.util.Log
 import android.view.SurfaceHolder
+import kotlin.concurrent.thread
 
 class Timer(var surfaceHolder: SurfaceHolder, var game: Game): Thread() {
 

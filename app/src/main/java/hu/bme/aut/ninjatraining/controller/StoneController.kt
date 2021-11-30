@@ -26,12 +26,12 @@ class StoneController(val width: Float, val height: Float) {
     }
 
     fun step(){
-        if (stones.size < maxNumOfStones && stepsSinceLastStone >= 5) {
-            stones.add(Stone(Vec2(Random.nextInt(0, width.toInt()).toFloat(), -50F), Vec2(0F, 0F), 40F))
-            stepsSinceLastStone = 0
-        }
-
         synchronized(o) {
+            if (stones.size < maxNumOfStones && stepsSinceLastStone >= 5) {
+                stones.add(Stone(Vec2(Random.nextInt(0, width.toInt()).toFloat(), -50F), Vec2(0F, 0F), 40F))
+                stepsSinceLastStone = 0
+            }
+
             for (stone in stones) {
                 stone.velocity += gravity
                 stone.step()

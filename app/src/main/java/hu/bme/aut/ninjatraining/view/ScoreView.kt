@@ -3,18 +3,21 @@ package hu.bme.aut.ninjatraining.view
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import hu.bme.aut.ninjatraining.model.Ninja
 
 class ScoreView {
 
-    private val paint: Paint = Paint()
+    private val paintWhite: Paint = Paint()
+    private val paintBlack: Paint = Paint()
 
     init {
-        paint.color = Color.WHITE
-        paint.textSize = 50F
+        paintWhite.color = Color.WHITE
+        paintWhite.textSize = 100F
+        paintBlack.color = Color.BLACK
+        paintBlack.textSize = 100F
     }
 
     fun draw(score: Int, canvas: Canvas) {
-        canvas.drawText("Score: $score", 0F, 40F, paint)
+        canvas.drawText("$score", 10F, 85F, paintBlack)
+        canvas.drawText("$score", 5F, 80F, paintWhite)
     }
 }
