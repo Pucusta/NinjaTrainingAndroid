@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         binding.startButton.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         binding.toplistButton.setOnClickListener {
             val intent = Intent(this, ToplistActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.exitButton.setOnClickListener {
+            finishAndRemoveTask()
         }
     }
 }

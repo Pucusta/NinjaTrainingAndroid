@@ -3,6 +3,8 @@ package hu.bme.aut.ninjatraining
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
+import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import hu.bme.aut.ninjatraining.controller.NinjaController
@@ -22,6 +24,9 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
     private var rightPressed = false
     private var leftPressed = false
 
+    var started = false
+    var initialized = false
+
     init {
         holder.addCallback(this)
         timer = Timer(holder, this)
@@ -30,7 +35,7 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        startGame()
+        initGame()
         gameActivity.gameInitialized = true
     }
 
@@ -44,6 +49,15 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (!started) {
+            startGame()
+            sceneController.setGameStarted(true)
+            started = true
+        }
+        return super.onTouchEvent(event)
     }
 
     fun step() {
@@ -89,12 +103,16 @@ class Game(context: Context, val gameActivity: GameActivity) : SurfaceView(conte
         else ninjaController.stayStill()
     }
 
-    fun startGame() {
+    fun initGame() {
         ninjaController = NinjaController(width.toFloat(), height.toFloat())
         stoneController = StoneController(width.toFloat(), height.toFloat())
         sceneController = SceneController(width.toFloat(), height.toFloat())
         scoreController = ScoreController()
 
+        initialized = true
+    }
+
+    fun startGame() {
         timer.running = true
         timer.start()
 

@@ -3,15 +3,15 @@ package hu.bme.aut.ninjatraining.fragments
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import hu.bme.aut.ninjatraining.data.ToplistItem
 import hu.bme.aut.ninjatraining.databinding.DialogNewToplistItemBinding
 
-class NewToplistItemDialogFragment : DialogFragment() {
+class NewToplistItemDialogFragment : DialogFragment(), View.OnClickListener{
     interface NewToplistItemDialogListener {
         fun onToplistItemCreated(newItem: ToplistItem)
         fun onReturnToGame()
@@ -25,8 +25,6 @@ class NewToplistItemDialogFragment : DialogFragment() {
     private lateinit var binding: DialogNewToplistItemBinding
 
     private var score: Int = 0
-
-    private var returnToGame = true
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,39 +42,33 @@ class NewToplistItemDialogFragment : DialogFragment() {
         binding = DialogNewToplistItemBinding.inflate(LayoutInflater.from(context))
         binding.tvScore.text = score.toString()
         binding.etName.setText(listener.loadLastPlayerName())
+        binding.btnSubmit.setOnClickListener(this)
+        binding.btnMenu.setOnClickListener(this)
+        binding.btnPlay.setOnClickListener(this)
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
             .setTitle("Score")
             .setView(binding.root)
-            .setPositiveButton("Play") { _, i ->
-                listener.onToplistItemCreated(getToplistItem())
-                listener.saveLastPlayerName(binding.etName.text.toString())
-                Toast.makeText(context, "Score saved!", Toast.LENGTH_SHORT).show()
-                returnToGame = true
-                dismiss()
-            }
-            .setNegativeButton("Menu") { _, i ->
-                returnToGame = false
-                dismiss()
-            }
-            .setNeutralButton("Save") { _, i ->
-                listener.onToplistItemCreated(getToplistItem())
-                Toast.makeText(context, "Score saved!", Toast.LENGTH_SHORT).show()
-            }
-            .setCancelable(false)
             .create()
         alertDialogBuilder.setCanceledOnTouchOutside(false)
-        //alertDialogBuilder.setCancelable(false)
         return alertDialogBuilder
     }
 
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (returnToGame)
-            listener.onReturnToGame()
-        else
-            listener.onReturnToMenu()
+    override fun onClick(view: View) {
+        when (view.id) {
+            binding.btnPlay.id -> {
+                dismiss()
+                listener.onReturnToGame()
+            }
+            binding.btnMenu.id -> {
+                dismiss()
+                listener.onReturnToMenu()
+            }
+            binding.btnSubmit.id -> {
+                listener.onToplistItemCreated(getToplistItem())
+                listener.saveLastPlayerName(binding.etName.text.toString())
+                Toast.makeText(context, "Score saved!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun getToplistItem() = ToplistItem(

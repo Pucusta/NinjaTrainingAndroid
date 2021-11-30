@@ -20,8 +20,6 @@ class Timer(var surfaceHolder: SurfaceHolder, var game: Game): Thread() {
         var frameCount: Int = 0
         var targetTime: Long = (1000/FPS).toLong()
 
-        sleep(1000)
-
         while (running) {
             startTime = System.nanoTime()
 

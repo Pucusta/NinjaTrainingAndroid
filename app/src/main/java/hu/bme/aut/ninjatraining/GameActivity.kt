@@ -65,13 +65,13 @@ class GameActivity : AppCompatActivity(), NewToplistItemDialogFragment.NewToplis
 
     override fun onStart() {
         super.onStart()
-        if (gameInitialized)
+        if (game.initialized)
             game.startGame()
     }
 
     override fun onResume() {
         super.onResume()
-        if (gameInitialized)
+        if (game.initialized)
             game.startGame()
     }
 

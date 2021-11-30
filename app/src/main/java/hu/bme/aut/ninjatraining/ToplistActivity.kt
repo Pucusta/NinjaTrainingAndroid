@@ -23,6 +23,7 @@ class ToplistActivity : AppCompatActivity() {
         binding = ActivityToplistBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        title = "Toplist"
 
         database = ToplistDatabase.getDatabase(applicationContext)
 
