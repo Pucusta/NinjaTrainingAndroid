@@ -7,8 +7,8 @@ import hu.bme.aut.ninjatraining.view.StartView
 
 class SceneController(width: Float, height: Float) {
 
-    private val scene: Scene = Scene(width, height)
-    private val sceneView: SceneView = SceneView()
+    private val scene = Scene(width, height)
+    private val sceneView = SceneView()
     private val startView = StartView()
 
     fun draw(canvas: Canvas) {

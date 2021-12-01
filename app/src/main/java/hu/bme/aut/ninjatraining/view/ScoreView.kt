@@ -6,8 +6,8 @@ import android.graphics.Paint
 
 class ScoreView {
 
-    private val paintWhite: Paint = Paint()
-    private val paintBlack: Paint = Paint()
+    private val paintWhite = Paint()
+    private val paintBlack = Paint()
 
     init {
         paintWhite.color = Color.WHITE

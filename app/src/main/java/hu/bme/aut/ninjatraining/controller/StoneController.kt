@@ -12,7 +12,7 @@ class StoneController(val width: Float, val height: Float) {
 
     private val stones: ArrayList<Stone> = arrayListOf()
     private val o = Object()
-    private val stoneView: StoneView = StoneView()
+    private val stoneView = StoneView()
     private val maxNumOfStones = 20
     private var stepsSinceLastStone = 0
 
@@ -27,10 +27,8 @@ class StoneController(val width: Float, val height: Float) {
 
     fun step(){
         synchronized(o) {
-            if (stones.size < maxNumOfStones && stepsSinceLastStone >= 5) {
-                stones.add(Stone(Vec2(Random.nextInt(0, width.toInt()).toFloat(), -50F), Vec2(0F, 0F), 40F))
-                stepsSinceLastStone = 0
-            }
+
+            generateStones()
 
             for (stone in stones) {
                 stone.velocity += gravity
@@ -41,6 +39,13 @@ class StoneController(val width: Float, val height: Float) {
         }
 
         stepsSinceLastStone += 1
+    }
+
+    fun generateStones() {
+        if (stones.size < maxNumOfStones && stepsSinceLastStone >= 5) {
+            stones.add(Stone(Vec2(Random.nextInt(0, width.toInt()).toFloat(), - (width / 25)), Vec2((Random.nextInt(0, 8) - 4).toFloat(), 0F), width / 25))
+            stepsSinceLastStone = 0
+        }
     }
 
     fun getStones() : List<Stone> {

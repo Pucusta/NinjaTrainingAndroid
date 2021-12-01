@@ -9,8 +9,8 @@ class Timer(var surfaceHolder: SurfaceHolder, var game: Game): Thread() {
 
     val FPS: Int = 60
     var avgFPS: Double = 0.0
-    var running: Boolean = false
-    var canvas: Canvas = Canvas()
+    var running = false
+    var canvas = Canvas()
 
     override fun run() {
         var startTime: Long = 0

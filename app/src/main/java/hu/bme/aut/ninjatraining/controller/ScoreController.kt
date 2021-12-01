@@ -5,7 +5,7 @@ import hu.bme.aut.ninjatraining.view.ScoreView
 
 class ScoreController {
 
-    private val scoreView: ScoreView = ScoreView()
+    private val scoreView = ScoreView()
     private var startTime: Long = 0
     private var score = 0
 
