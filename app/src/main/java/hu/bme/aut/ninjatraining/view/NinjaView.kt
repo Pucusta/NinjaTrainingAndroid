@@ -20,14 +20,14 @@ class NinjaView {
 
         var xFace = ninja.position.x - ninja.radius / 2
         var yFace = ninja.position.y - ninja.radius / 2
-        canvas.drawRect(xFace, yFace, xFace + ninja.radius, yFace + ninja.radius / 4, paintSkin)
-
+        //canvas.drawRect(xFace, yFace, xFace + ninja.radius, yFace + ninja.radius / 4, paintSkin)
+        canvas.drawRoundRect(xFace, yFace, xFace + ninja.radius, yFace + ninja.radius / 4, yFace + ninja.radius / 4 / 2, yFace + ninja.radius / 4 / 2, paintSkin)
         var xEye1 = xFace + ninja.radius / 5
         var yEye1 = yFace + ninja.radius / 4 / 3
-        canvas.drawRect(xEye1, yEye1, xEye1 + ninja.radius / 5, yEye1 + ninja.radius / 4 / 3, paintBlack)
+        canvas.drawRoundRect(xEye1, yEye1, xEye1 + ninja.radius / 5, yEye1 + ninja.radius / 4 / 3, yEye1 + ninja.radius / 4 / 3 / 2, yEye1 + ninja.radius / 4 / 3 / 2, paintBlack)
 
         var xEye2 = xFace + ninja.radius / 5 * 3
         var yEye2 = yFace + ninja.radius / 4 / 3
-        canvas.drawRect(xEye2, yEye2, xEye2 + ninja.radius / 5, yEye2 + ninja.radius / 4 / 3, paintBlack)
+        canvas.drawRoundRect(xEye2, yEye2, xEye2 + ninja.radius / 5, yEye2 + ninja.radius / 4 / 3, yEye1 + ninja.radius / 4 / 3 / 2, yEye1 + ninja.radius / 4 / 3 / 2, paintBlack)
     }
 }

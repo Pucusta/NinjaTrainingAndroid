@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/drawable/ic_launcher_ninjatraining_background.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/drawable/ic_launcher_ninjatraining_foreground.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/drawable/ic_ninjatraininlogobackground.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/drawable/ic_ninjatraininlogoforeground.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.334375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_toplist.xml" value="0.3125" />
