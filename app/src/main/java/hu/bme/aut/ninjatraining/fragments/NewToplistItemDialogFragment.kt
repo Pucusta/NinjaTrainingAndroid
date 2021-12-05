@@ -26,6 +26,8 @@ class NewToplistItemDialogFragment : DialogFragment(), View.OnClickListener{
 
     private var score: Int = 0
 
+    private var submitted = false
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as? NewToplistItemDialogListener
@@ -64,9 +66,13 @@ class NewToplistItemDialogFragment : DialogFragment(), View.OnClickListener{
                 listener.onReturnToMenu()
             }
             binding.btnSubmit.id -> {
-                listener.onToplistItemCreated(getToplistItem())
-                listener.saveLastPlayerName(binding.etName.text.toString())
-                Toast.makeText(context, "Score saved!", Toast.LENGTH_SHORT).show()
+                if (!submitted) {
+                    listener.onToplistItemCreated(getToplistItem())
+                    listener.saveLastPlayerName(binding.etName.text.toString())
+                    Toast.makeText(context, "Score saved!", Toast.LENGTH_SHORT).show()
+
+                    submitted = true
+                }
             }
         }
     }

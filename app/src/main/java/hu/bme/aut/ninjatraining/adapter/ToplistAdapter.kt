@@ -17,6 +17,7 @@ class ToplistAdapter : RecyclerView.Adapter<ToplistAdapter.ToplistViewHolder>(){
     override fun onBindViewHolder(holder: ToplistViewHolder, position: Int) {
         val toplistItem = toplistItems[position]
 
+        holder.binding.tvPlace.text = (position + 1).toString() + "."
         holder.binding.tvName.text = toplistItem.name
         holder.binding.tvScore.text = toplistItem.score.toString()
     }
